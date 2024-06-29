@@ -4,9 +4,9 @@ const restaurantSchema = new mongoose.Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
   location: { type: String, required: true },
-  featuredImage: {
-    data: { type: String, required: true }, 
-    contentType: { type: String, required: true },
+  featuredImage:{
+      type: String,
+      required: true
   },
   phoneNumber: { type: String, required: true },
   email: { type: String, required: true },

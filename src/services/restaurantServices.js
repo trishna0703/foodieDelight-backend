@@ -1,5 +1,6 @@
 const Restaurant = require("../../model/Restaurants");
-const fs = require('fs');
+const fs = require("fs");
+const uploadFileToS3 = require("./upload");
 
 async function getRestaurantList(req, res) {
   try {
@@ -16,7 +17,6 @@ async function getRestaurantList(req, res) {
 
 async function addOrUpdateRestaurant(req, res) {
   try {
-    const featuredImage = req.file;
     const {
       _id: id,
       name,
@@ -37,19 +37,22 @@ async function addOrUpdateRestaurant(req, res) {
       email,
     };
 
-    console.log("step form body => ", restaurantData, featuredImage);
+    if (req.file) {
+      const { originalname, buffer } = req.file;
 
-    if (featuredImage) {
-      restaurantData.featuredImage = {
-        data: featuredImage.buffer.toString('base64'),
-        contentType: featuredImage.mimetype,
-      };
+      try {
+        const s3Url = await uploadFileToS3(originalname, buffer);
+        console.log("Uploaded file URL:", s3Url);
+        restaurantData.featuredImage = s3Url;
+      } catch (error) {
+        console.error("Failed to upload file to S3:", error);
+        throw new Error("Failed to upload file to S3");
+      }
     }
 
     let responseMessage;
     let status;
     let data;
-    console.log("step line 49 => ", featuredImage);
 
     if (id) {
       const updatedRestaurant = await Restaurant.findByIdAndUpdate(
