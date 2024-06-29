@@ -1,4 +1,5 @@
 const Restaurant = require("../../model/Restaurants");
+const fs = require('fs');
 
 async function getRestaurantList(req, res) {
   try {
@@ -40,7 +41,7 @@ async function addOrUpdateRestaurant(req, res) {
 
     if (featuredImage) {
       restaurantData.featuredImage = {
-        data: featuredImage.buffer,
+        data: featuredImage.buffer.toString('base64'),
         contentType: featuredImage.mimetype,
       };
     }
