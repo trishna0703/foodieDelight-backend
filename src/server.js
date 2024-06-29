@@ -18,7 +18,12 @@ const app = express();
 
 // cors config
 app.use(
-  cors()
+  cors({
+    origin: ["http://localhost:3000" , "*" ,"https://foodie-delight-one.vercel.app/"],
+    allowedHeaders: ["Content-type"],
+    credentials:true,
+    methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
+  })
 );
 
 // connect to MongoDB
@@ -29,8 +34,8 @@ app.use(express.urlencoded({ extended: true }));
 
 // routes
 app.get("/api/health", (req, res) => {
-  console.log("Server V1.2 deployed.");
-  return res.send("Server v1.2 deployed");
+  console.log("Server V1.3 deployed.");
+  return res.send("Server v1.3 deployed");
 });
 app.get("/api/getRestaurantList", getRestaurantList);
 app.post(
