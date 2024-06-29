@@ -33,7 +33,11 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get('/', () => console.log("Server V1.1 deployed."))
+app.get('/', (req,res) =>
+  { 
+    console.log("Server V1.2 deployed.")
+  return res.send("Server v1.2 deployed")
+})
 app.get("/api/getRestaurantList", getRestaurantList);
 app.post(
   "/api/saveRestaurant",
