@@ -33,6 +33,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // routes
+app.get('/', () => console.log("Server V1.0 updated."))
 app.get("/api/getRestaurantList", getRestaurantList);
 app.post(
   "/api/saveRestaurant",
