@@ -19,7 +19,7 @@ const app = express();
 // cors config
 app.use(
   cors({
-    origin: ["http://localhost:3000" , "*" ,"https://foodie-delight-one.vercel.app/"],
+    origin: ["http://localhost:3000" ,"https://foodie-delight-one.vercel.app/"],
     allowedHeaders: ["Content-type"],
     credentials:true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
