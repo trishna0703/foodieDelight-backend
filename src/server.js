@@ -20,7 +20,7 @@ const app = express();
 app.use(
   cors({
     origin: ["http://localhost:3000" ,"https://foodie-delight-one.vercel.app"],
-    allowedHeaders: ["Content-type"],
+    allowedHeaders: ["Content-Type"],
     credentials:true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
   })
