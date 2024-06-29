@@ -19,7 +19,7 @@ const app = express();
 // cors config
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: "https://foodie-delight-one.vercel.app/",
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
     methods: ["GET", "POST", "PATCH", "PUT", "DELETE"],
@@ -33,7 +33,7 @@ app.use(express.json({ limit: "10mb" }));
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.get('/', () => console.log("Server V1.0 updated."))
+app.get('/', () => (<h1>Server V1.0 updated.</h1>))
 app.get("/api/getRestaurantList", getRestaurantList);
 app.post(
   "/api/saveRestaurant",
