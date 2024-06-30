@@ -4,8 +4,23 @@ const uploadFileToS3 = require("./upload");
 
 async function getRestaurantList(req, res) {
   try {
-    const list = await Restaurant.find();
-    res.json({ message: "Restaurant list.", status: 200, data: list });
+    const { page = 1, limit = 10 } = req.query;
+    const pageNumber = parseInt(page, 10);
+    const limitNumber = parseInt(limit, 10);
+
+    const totalRestaurants = await Restaurant.countDocuments();
+    const list = await Restaurant.find()
+      .skip((pageNumber - 1) * limitNumber)
+      .limit(limitNumber);
+
+    res.json({
+      message: "Restaurant list.",
+      status: 200,
+      data: list,
+      total: totalRestaurants,
+      page: pageNumber,
+      pages: Math.ceil(totalRestaurants / limitNumber),
+    });
   } catch (error) {
     res.status(500).json({
       message: "Error fetching restaurant list",
